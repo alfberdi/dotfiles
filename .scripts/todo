@@ -4,7 +4,7 @@ SB="#ff8c00"
 SF="#000000"
 NB="#000000"
 NF="#ff8c00"
-FN="-*-fixed-medium-r-semicondensed-*-13-*-*-*-*-*-iso10646-*"
+FN="-*-terminus-*-*-*-*-14-*-*-*-*-*-*-*"
 
 FILE=~/Dropbox/todo/todo.txt
 DONE=~/Dropbox/todo/done.txt
