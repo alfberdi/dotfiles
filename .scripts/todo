@@ -10,7 +10,6 @@ FILE=~/Dropbox/todo/todo.txt
 DONE=~/Dropbox/todo/done.txt
 HEIGHT=$(cat $FILE | wc -l)
 PROMPT="Add/delete a task"
-X="x "
 
 ACTION="cat $FILE | dmenu -fn $FN -l '$HEIGHT' -nb '$NB' -nf '$NF' -sb '$SB' -sf '$SF' -p '$PROMPT:' "
 CMD=$(eval $ACTION)
