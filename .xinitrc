@@ -7,22 +7,22 @@ setxkbmap es;
 /usr/bin/mpd &
 
 print_song_info() {
-	if [[ $(mpc status | grep playing) ]]; then
-		song_info="Playing"
-	else
-		song_info="Paused"
+	song_info="$(mpc current -f '[[[[%artist% \uE01B ]%title%]]|[%file%]]' | head -c 75)"
+	if [[ ! $song_info ]]; then
+		song_info="Off"
 	fi
-	echo -ne "MPD: ${song_info}"
+	echo -ne "${song_info} "
 }
 
 print_bat_info() {
-	#batstatus=${acpi -b}
-	#if [[ $( acpi -b | grep Charging ) ]]; then
-	#	Bat_info="C"
-	#else
-	#	Bat_info="D"
-	#fi
-	echo -ne "Bat: $( acpi -b | awk 'sub(/,/,"") {print $4}')"
+	status="$(cat /sys/class/power_supply/ACAD/online)"
+	battery="$(cat /sys/class/power_supply/BAT1/capacity)"
+	timer="$(acpi -b | grep "Battery" | awk '{print $5}' | cut -c 1-5)"
+	if [ "${status}" == 1 ]; then
+		echo -ne "Bat: C ${battery}%"
+	else
+		echo -ne "Bat: ${battery}%"
+	fi
 }
 
 while true; do
@@ -32,9 +32,7 @@ while true; do
 
 	#DWM_CPU_USE="USE: $(eval $(awk '/^cpu /{print "previdle=" $5 "; prevtotal=" $2+$3+$4+$5 }' /proc/stat); sleep 0.4; eval $(awk '/^cpu /{print "idle=" $5 "; total="$2+$3+$4+$5 }' /proc/stat); intervaltotal=$((total-${prevtotal:-0})); echo "$((100*( (intervaltotal) - ($idle-${previdle:-0}) ) / (intervaltotal) ))")%"
 
-	#DWM_RAM="RAM: $(free -m | grep '^Mem' | awk '{print int($3 / $2 * 100) "%" }')"
-
-	DWM_BAT="Bat: $( acpi -b | awk 'sub(/,/,"") {print $4}')"
+	DWM_RAM="RAM: $(free -m | grep '^Mem' | awk '{print int($3 / $2 * 100) "%" }')"
 
 	# Wifi Status
 	DWM_ESSID="WiFi: $( /sbin/iwgetid -r )"
@@ -46,7 +44,7 @@ while true; do
 	DWM_TIME="$( date +"%F %R" )"
 
 	#xsetroot -name "$(print_song_info) | CPU: $DWM_CPU_TMP $DWM_CPU_USE | $DWM_RAM | $DWM_ESSID | $DWM_BAT | $DWM_VOL| $DWM_TIME"
-	xsetroot -name "$(print_song_info) | $DWM_ESSID | $DWM_BAT | $DWM_VOL| $DWM_TIME"
+	xsetroot -name "$(print_song_info) | $DWM_RAM | $DWM_ESSID | $(print_bat_info) | $DWM_VOL| $DWM_TIME"
 
 	sleep 30s;
 
