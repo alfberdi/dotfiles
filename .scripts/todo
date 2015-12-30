@@ -1,14 +1,16 @@
 #!/bin/sh
 # Write/remove a task to do later.
-SB="#336699"
-SF="#ccc"
-NB="#111"
-NF="#ccc"
+SB="#ff8c00"
+SF="#000000"
+NB="#000000"
+NF="#ff8c00"
 FN="-*-fixed-medium-r-semicondensed-*-13-*-*-*-*-*-iso10646-*"
 
 FILE=~/Dropbox/todo/todo.txt
+DONE=~/Dropbox/todo/done.txt
 HEIGHT=$(cat $FILE | wc -l)
 PROMPT="Add/delete a task"
+X="x "
 
 ACTION="cat $FILE | dmenu -fn $FN -l '$HEIGHT' -nb '$NB' -nf '$NF' -sb '$SB' -sf '$SF' -p '$PROMPT:' "
 CMD=$(eval $ACTION)
@@ -16,13 +18,14 @@ while [ -n "$CMD" ]; do
 	grep -q "^$CMD" $FILE
 	if [ $? = 0 ]; then
 		grep -v "^$CMD" $FILE > /tmp/todo
+		echo "x $(date +"%Y-%m-%d") $(grep "^$CMD" $FILE)" >> $DONE
 		mv /tmp/todo $FILE
-        HEIGHT=$(($HEIGHT-1))
-        ACTION="cat $FILE | dmenu -fn $FN -l '$HEIGHT' -nb '$NB' -nf '$NF' -sb '$SB' -sf '$SF' -p '$PROMPT:' "
+	        HEIGHT=$(($HEIGHT-1))
+        	ACTION="cat $FILE | dmenu -fn $FN -l '$HEIGHT' -nb '$NB' -nf '$NF' -sb '$SB' -sf '$SF' -p '$PROMPT:' "
 	else
-		echo "$CMD" >> $FILE
-        HEIGHT=$(($HEIGHT+1))
-        ACTION="cat $FILE | dmenu -fn $FN -l '$HEIGHT' -nb '$NB' -nf '$NF' -sb '$SB' -sf '$SF' -p '$PROMPT:' "
+		echo "$(date +"%Y-%m-%d") $CMD" >> $FILE
+	        HEIGHT=$(($HEIGHT+1))
+        	ACTION="cat $FILE | dmenu -fn $FN -l '$HEIGHT' -nb '$NB' -nf '$NF' -sb '$SB' -sf '$SF' -p '$PROMPT:' "
 	fi
 	
 	CMD=$(eval $ACTION)
