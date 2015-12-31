@@ -32,7 +32,7 @@ while true; do
 	#DWM_CPU_USE="USE: $(eval $(awk '/^cpu /{print "previdle=" $5 "; prevtotal=" $2+$3+$4+$5 }' /proc/stat); sleep 0.4; eval $(awk '/^cpu /{print "idle=" $5 "; total="$2+$3+$4+$5 }' /proc/stat); intervaltotal=$((total-${prevtotal:-0})); echo "$((100*( (intervaltotal) - ($idle-${previdle:-0}) ) / (intervaltotal) ))")%"
 
 	# RAM Usage
-	DWM_RAM="RAM: $(free -m | grep '^Mem' | awk '{print int($3 / $2 * 100) "%" }')"
+	#DWM_RAM="RAM: $(free -m | grep '^Mem' | awk '{print int($3 / $2 * 100) "%" }')"
 
 	# Wifi Status
 	DWM_ESSID="WiFi: $( /sbin/iwgetid -r )"
@@ -43,7 +43,7 @@ while true; do
 	# Time Date
 	DWM_TIME="$( date +"%F %R" )"
 
-	xsetroot -name "$(print_song_info)| $DWM_RAM | $DWM_ESSID | $(print_bat_info) | $DWM_VOL| $DWM_TIME"
+	xsetroot -name "$(print_song_info)| $DWM_ESSID | $(print_bat_info) | $DWM_VOL| $DWM_TIME"
 
 	sleep 60s;
 
