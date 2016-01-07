@@ -1,0 +1,18 @@
+#!/bin/sh
+# Write/remove a task to do later.
+SB="#ff8c00"
+SF="#000000"
+NB="#000000"
+NF="#ff8c00"
+FN="-*-terminus-*-*-*-*-14-*-*-*-*-*-*-*"
+
+DIR=~/.scripts
+HEIGHT=$(ls $DIR | wc -l)
+PROMPT="Choose script"
+
+ACTION="ls $DIR | dmenu -fn $FN -l '$HEIGHT' -nb '$NB' -nf '$NF' -sb '$SB' -sf '$SF' -p '$PROMPT:' "
+CMD=$(eval $ACTION)
+if [ -n "$CMD" ];then
+	cd $DIR
+	$DIR/$CMD &
+fi
