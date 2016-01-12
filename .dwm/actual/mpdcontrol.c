@@ -18,7 +18,7 @@ struct mpd_connection *get_conn(){
 
         mpd_connection_free(conn);
         return NULL;
-   }
+    }
 
     return conn;
 }
@@ -40,7 +40,7 @@ void mpdchange(const Arg *direction){
     }
 
     mpd_connection_free(conn);
-}        
+}
 
 char *get_regerror(int errcode, regex_t *compiled){
     size_t length = regerror(errcode, compiled, NULL, 0);
@@ -55,26 +55,28 @@ void mpdcontrol(){
     struct mpd_status *status;
     struct mpd_song *song;
     enum mpd_state state;
-     
+
     const char *filename;
-        
+
     regex_t expr;
-        
+
     conn = get_conn();
+
     if(conn == NULL){
         return;
     }
-            
+
     status = mpd_run_status(conn);
 
     if(status == NULL){
         fprintf(stderr, "Could not get mpd status: %s\n", mpd_status_get_error(status));
-        
+
         mpd_status_free(status);
         mpd_connection_free(conn);
         return;
     }
-	state = mpd_status_get_state(status);
+
+    state = mpd_status_get_state(status);
 
     if(state == MPD_STATE_STOP || state == MPD_STATE_PAUSE){
         mpd_run_play(conn);
@@ -100,7 +102,7 @@ void mpdcontrol(){
             char *err = get_regerror(errcode, &expr);
             fprintf(stderr, "Could not compile regexp: %s\n", err);
 
-mpd_song_free(song);
+            mpd_song_free(song);
             mpd_status_free(status);
             mpd_connection_free(conn);
             free(err);
@@ -109,11 +111,12 @@ mpd_song_free(song);
         }
 
         int matchcode = regexec(&expr, filename, 0, NULL, 0);
+
         if(matchcode == 0){
             if(strstr(filename, "file://") == filename){ //match just at the start of the filename
-               //this means that mpd is playing a file outside the music_dir,
+                //this means that mpd is playing a file outside the music_dir,
                 //but on disk, so we can safely pause
-               mpd_run_toggle_pause(conn);
+                mpd_run_toggle_pause(conn);
             }
             else{
                 mpd_run_stop(conn);
@@ -125,7 +128,8 @@ mpd_song_free(song);
         else{
             char *err = get_regerror(matchcode, &expr);
             fprintf(stderr, "Error while matching regexp: %s\n", err);
-	free(err);
+
+            free(err);
         }
 
         regfree(&expr);
@@ -134,4 +138,3 @@ mpd_song_free(song);
         mpd_connection_free(conn);
     }
 }
-
