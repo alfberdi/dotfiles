@@ -1,5 +1,6 @@
 // -*- mode: jsonc -*-
 {
+    "font-family": "AdwaitaMono",
     // "layer": "top", // Waybar at top layer
     // "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 24, // Waybar height (to be removed for auto height)
@@ -15,21 +16,12 @@
         "hyprland/window"
     ],
     "modules-right": [
-        //"mpd",
-        //"idle_inhibitor",
-        //"pulseaudio",
+        "tray",
         "network",
-        //"power-profiles-daemon",
-        //"cpu",
-        //"memory",
-        //"temperature",
-        //"backlight",
-        //"keyboard-state",
         "battery",
-        //"battery#bat2",
+        "idle_inhibitor",
         "clock",
-        "tray"
-        //"custom/power"
+        "custom/power"
     ],
     // Modules configuration
     "hyprland/workspaces": {
@@ -44,21 +36,12 @@
             "*": 5
         },
         "format-icons": {
-            "1": "Misc",
-            "2": "🌐 Internet",
-            "3": "💻 Dev",
-            "4": "🄯 Pen",
-            "5": "@ Pen",
+            "1": "🕀 Misc",
+            "2": "🕸 Internet",
+            "3": "🖳 Dev",
+            "4": "🕱 Pen",
+            "5": "🖧 Sysadmin",
             "urgent": "!"
-        }
-    },
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
         }
     },
     "hyprland/submap": {
@@ -93,42 +76,22 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "",
-            "deactivated": ""
+            "activated": "☕",
+            "deactivated": "🧃"
         }
     },
     "tray": {
         // "icon-size": 21,
-        "spacing": 10,
-        // "icons": {
-        //   "blueman": "bluetooth",
-        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
-        // }
+        "spacing": 5,
+        "icons": {
+          "blueman": "bluetooth",
+          "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        }
     },
     "clock": {
         // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "{}% "
-    },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "battery": {
         "states": {
@@ -136,68 +99,23 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}% {icon}",
-        "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
+        "format": "{capacity}% 🔋",
+        "format-full": "",
+        "format-charging": "{capacity}% 🔌",
+        "format-plugged": "🔌",
+        "format-alt": "{time}"
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "battery#bat2": {
-        "bat": "BAT2"
-    },
-    "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-      "tooltip": true,
-      "format-icons": {
-        "default": "",
-        "performance": "",
-        "balanced": "",
-        "power-saver": ""
-      }
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
+        "format-wifi": "{essid} ({signalStrength}%) ᯤ",
+        "format-ethernet": "{ipaddr}/{cidr} 🔌〰️",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
-    },
-    "custom/media": {
-        "format": "{icon} {text}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click-right": "sh ~/.config/waybar/scripts/wifimenu.sh"
     },
     "custom/power": {
         "format" : "⏻ ",
@@ -207,6 +125,7 @@
 		"menu-actions": {
 			"shutdown": "shutdown",
 			"reboot": "reboot",
+            "log-out": "hyprctl dispatch exit",
 			"suspend": "systemctl suspend",
 			"hibernate": "systemctl hibernate"
 		}
