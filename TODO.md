@@ -4,8 +4,8 @@
 - [x] install yay
 - [x] install hyprland
 - [ ] configure hyprland
-    - [ ] set workspaces
-    - [ ] choose colors
+    - [x] set workspaces
+    - [x] choose colors
     - [ ] learn/adapt bindings
     - [ ] add plugin hyprbars
 - [x] install hyprpaper
@@ -14,6 +14,13 @@
 - [ ] configure waybar
     - [ ] make it nice
     - [ ] set layout
-- [ ] install dmenu like program
+- [x] install rofi
+- [ ] configure rofi
+- [ ] install zsh
+- [ ] configure zsh
+    - [ ] autocomplete
+    - [ ] ps1
+- [ ] configure kitty
 - [ ] install blackarch repo
+- [ ] research neovim
 
