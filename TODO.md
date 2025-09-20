@@ -7,20 +7,20 @@
     - [x] set workspaces
     - [x] choose colors
     - [ ] learn/adapt bindings
-    - [ ] add plugin hyprbars
+    ~- [ ] add plugin hyprbars~
 - [x] install hyprpaper
     - [x] configure hyprpaper
 - [x] install waybar
 - [ ] configure waybar
     - [ ] make it nice
-    - [ ] set layout
+    - [x] set layout
 - [x] install rofi
 - [ ] configure rofi
-- [ ] install zsh
+- [x] install zsh
 - [ ] configure zsh
     - [ ] autocomplete
     - [ ] ps1
 - [ ] configure kitty
-- [ ] install blackarch repo
+- [x] install blackarch repo
 - [ ] research neovim
 
