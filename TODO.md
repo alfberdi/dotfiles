@@ -8,19 +8,19 @@
     - [x] choose colors
     - [ ] learn/adapt bindings
     ~- [ ] add plugin hyprbars~
+    - [ ] add plugin hyprexpo
 - [x] install hyprpaper
     - [x] configure hyprpaper
 - [x] install waybar
 - [ ] configure waybar
     - [ ] make it nice
     - [x] set layout
-- [x] install rofi
-- [ ] configure rofi
+- [x] install walker
 - [x] install zsh
-- [ ] configure zsh
-    - [ ] autocomplete
-    - [ ] ps1
-- [ ] configure kitty
+- [x] configure zsh
+    - [x] autocomplete
+    - [x] ps1
+- [x] configure kitty
 - [x] install blackarch repo
 - [ ] research neovim
 
